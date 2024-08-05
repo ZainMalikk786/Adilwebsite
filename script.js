@@ -1,9 +1,8 @@
-// Particle animation setup
+// Setup for particle effects
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d');
-
-let particles = [];
-const numParticles = 100;
+const particles = [];
+const numParticles = 150;
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -13,15 +12,17 @@ class Particle {
         this.x = x;
         this.y = y;
         this.size = Math.random() * 5 + 1;
-        this.speedX = Math.random() * 3 - 1.5;
-        this.speedY = Math.random() * 3 - 1.5;
-        this.color = 'rgba(255, 255, 255, 0.7)';
+        this.speedX = Math.random() * 6 - 3;
+        this.speedY = Math.random() * 6 - 3;
+        this.color = 'rgba(255, 255, 255, 0.8)';
+        this.life = Math.random() * 30 + 30; // lifespan of the particle
     }
 
     update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        if (this.size > 0.2) this.size -= 0.1;
+        this.size *= 0.96; // gradually reduce size
+        this.life -= 1;
     }
 
     draw() {
@@ -48,7 +49,7 @@ function animateParticles() {
     particles.forEach((particle, index) => {
         particle.update();
         particle.draw();
-        if (particle.size <= 0.2) {
+        if (particle.life <= 0) {
             particles.splice(index, 1);
         }
     });
