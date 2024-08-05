@@ -1,12 +1,13 @@
-// Setup for particle effects
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d');
 const particles = [];
-const numParticles = 150;
+const numParticles = 100;
 
+// Set canvas dimensions
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+// Particle class
 class Particle {
     constructor(x, y) {
         this.x = x;
@@ -36,14 +37,16 @@ class Particle {
     }
 }
 
+// Function to create particles on mouse or touch move
 function createParticles(e) {
-    const xPos = e.x;
-    const yPos = e.y;
+    const xPos = e.clientX || e.touches[0].clientX;
+    const yPos = e.clientY || e.touches[0].clientY;
     for (let i = 0; i < numParticles; i++) {
         particles.push(new Particle(xPos, yPos));
     }
 }
 
+// Animation loop
 function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach((particle, index) => {
@@ -56,11 +59,13 @@ function animateParticles() {
     requestAnimationFrame(animateParticles);
 }
 
+// Event listeners
 canvas.addEventListener('mousemove', createParticles);
-animateParticles();
-
-// Resize canvas on window resize
+canvas.addEventListener('touchmove', createParticles);
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
+
+// Start animation
+animateParticles();
