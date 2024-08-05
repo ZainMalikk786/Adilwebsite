@@ -1,65 +1,80 @@
-// Particle animation setup
-const canvas = document.getElementById('particleCanvas');
-const ctx = canvas.getContext('2d');
+body {
+    margin: 0;
+    padding: 0;
+    background: #282c34;
+    color: #61dafb;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
 
-let particles = [];
-const numParticles = 100;
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+.container h1 {
+    font-size: 3em;
+    margin: 0;
+    animation: textGlow 1.5s ease-in-out infinite;
+}
 
-class Particle {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.size = Math.random() * 5 + 1;
-        this.speedX = Math.random() * 3 - 1.5;
-        this.speedY = Math.random() * 3 - 1.5;
-        this.color = 'rgba(255, 255, 255, 0.7)';
+.container .button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(45deg, #ff0066, #cc00ff);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, color 0.3s;
+}
+
+.container .button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 20%, transparent 70%);
+    transform: scale(0);
+    transition: transform 0.5s;
+    z-index: 1;
+}
+
+.container .button:hover::before {
+    transform: scale(1);
+}
+
+.container .button:hover {
+    background: linear-gradient(45deg, #cc00ff, #ff0066);
+    color: #000;
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 5px #61dafb, 0 0 10px #61dafb, 0 0 15px #61dafb, 0 0 20px #21a1f1, 0 0 25px #21a1f1, 0 0 30px #21a1f1;
     }
-
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.size > 0.2) this.size -= 0.1;
+    50% {
+        text-shadow: 0 0 10px #61dafb, 0 0 20px #61dafb, 0 0 30px #61dafb, 0 0 40px #21a1f1, 0 0 50px #21a1f1, 0 0 60px #21a1f1;
     }
-
-    draw() {
-        ctx.fillStyle = this.color;
-        ctx.strokeStyle = this.color;
-        ctx.lineWidth = this.size;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
+    100% {
+        text-shadow: 0 0 5px #61dafb, 0 0 10px #61dafb, 0 0 15px #61dafb, 0 0 20px #21a1f1, 0 0 25px #21a1f1, 0 0 30px #21a1f1;
     }
 }
 
-function createParticles(e) {
-    const xPos = e.x;
-    const yPos = e.y;
-    for (let i = 0; i < numParticles; i++) {
-        particles.push(new Particle(xPos, yPos));
-    }
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    pointer-events: none;
 }
-
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((particle, index) => {
-        particle.update();
-        particle.draw();
-        if (particle.size <= 0.2) {
-            particles.splice(index, 1);
-        }
-    });
-    requestAnimationFrame(animateParticles);
-}
-
-canvas.addEventListener('mousemove', createParticles);
-animateParticles();
-
-// Resize canvas on window resize
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
