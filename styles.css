@@ -67,20 +67,11 @@ body {
     overflow: hidden;
 }
 
-.animated-background span {
+.particle {
     position: absolute;
-    display: block;
-    width: 20px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    animation: animate 25s linear infinite;
-}
-
-@keyframes animate {
-    0% {
-        transform: translateY(0) rotate(0deg);
-    }
-    100% {
-        transform: translateY(-100vh) rotate(720deg);
-    }
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
 }
