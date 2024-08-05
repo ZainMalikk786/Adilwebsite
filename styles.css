@@ -71,10 +71,3 @@ body {
         text-shadow: 0 0 5px #61dafb, 0 0 10px #61dafb, 0 0 15px #61dafb, 0 0 20px #21a1f1, 0 0 25px #21a1f1, 0 0 30px #21a1f1;
     }
 }
-
-.particle {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.8);
-    pointer-events: none;
-}
