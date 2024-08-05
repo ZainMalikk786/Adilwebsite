@@ -8,22 +8,29 @@ body {
     font-family: Arial, sans-serif;
     overflow: hidden;
     color: #fff;
+    position: relative;
+}
+
+.border-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 0, 0, 0.3), 0 0 40px rgba(255, 0, 255, 0.3), 0 0 50px rgba(0, 255, 255, 0.3);
+    animation: borderAnimation 5s infinite;
+    z-index: -1;
 }
 
 .container {
     text-align: center;
+    z-index: 1;
 }
 
 h2 {
     font-size: 1.5rem;
     animation: fadeIn 2s ease-in-out;
     margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 3rem;
-    animation: neon 1.5s infinite alternate;
-    margin-bottom: 40px;
 }
 
 .links {
@@ -74,5 +81,23 @@ a:hover {
     100% {
         transform: scale(1.1);
         box-shadow: 0 0 10px #fff, 0 0 15px #fff, 0 0 25px #fff, 0 0 50px #fff, 0 0 100px #fff, 0 0 110px #fff, 0 0 150px #fff, 0 0 200px #fff;
+    }
+}
+
+@keyframes borderAnimation {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 0, 0, 0.3), 0 0 40px rgba(255, 0, 255, 0.3), 0 0 50px rgba(0, 255, 255, 0.3);
+    }
+    25% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3), 0 0 30px rgba(255, 255, 0, 0.3), 0 0 40px rgba(0, 0, 255, 0.3), 0 0 50px rgba(255, 0, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.3), 0 0 30px rgba(0, 255, 0, 0.3), 0 0 40px rgba(0, 255, 255, 0.3), 0 0 50px rgba(255, 0, 0, 0.3);
+    }
+    75% {
+        box-shadow: 0 0 20px rgba(0, 0, 255, 0.3), 0 0 30px rgba(255, 255, 0, 0.3), 0 0 40px rgba(255, 0, 255, 0.3), 0 0 50px rgba(0, 255, 0, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 0, 0, 0.3), 0 0 40px rgba(255, 0, 255, 0.3), 0 0 50px rgba(0, 255, 255, 0.3);
     }
 }
